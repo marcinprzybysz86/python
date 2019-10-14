@@ -1,0 +1,11 @@
+[Unit]
+Description=Domoticz IFTTT router
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python3 /home/pi/git/python/pythonwebserver.py >> /var/log/domorouter.log 2>&1
+StandardInput=tty-force
+
+[Install]
+WantedBy=multi-user.target
