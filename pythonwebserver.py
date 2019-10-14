@@ -1,5 +1,12 @@
 # inistial code cloned from https://gist.github.com/bradmontgomery/2219997#gistcomment-2057683 "ghost"
+
+## this service is designed to route ifttt request to domoticz instead of exposing domoticz instance to the world.
+## the idea is to put in IFTTT url with secret key like:  http://1.2.3.4/LightsOn&secret=abcdjkneidnn, then parse it and run url request to domoticz Locally.
+# there's also an advantage - you can use IFTTT with ingredients like :   http://{url}/GoingToSleep and map it to a scene in domoticz. You can not do it directly to domoticz because of idx instead of scene name in url. 
+#  Now you can have just 1 rule in IFTTT to manage your scenes and map them to IDX in this script.
+
 #!/usr/bin/python3
+
 
 import socket
 from http.server import BaseHTTPRequestHandler, HTTPServer
