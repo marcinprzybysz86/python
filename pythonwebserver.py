@@ -15,9 +15,9 @@ import socket
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
 import urllib.request
+import config
 
 hostName = ""
-hostPort = 16123
 
 with open('/home/pi/git/python/secret.txt', 'r') as file:
 	secret = file.read().replace('\n', '')
@@ -36,28 +36,19 @@ class MyServer(BaseHTTPRequestHandler):
                         idx = 6
 		print('ustawiam IDX = '+str(idx))
 		url = 'http://127.0.0.1:8080/json.htm?type=command&param=switchscene&idx='+str(idx)+'&switchcmd=On'
+
+
 		#print(url)
 		if idx > 0 :
 			with urllib.request.urlopen(url) as response:
 				print('Making request: '+url)
 				html = response.read()	
 	
-	#	POST is for submitting data.
-	def do_POST(self):
-
-		print( "incomming http: ", self.path )
-
-		content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
-		post_data = self.rfile.read(content_length) # <--- Gets the data itself
-		self.send_response(200)
-
-		client.close()
-
 		#import pdb; pdb.set_trace()
 
 
-myServer = HTTPServer((hostName, hostPort), MyServer)
-print(time.asctime(), "Server Starts - %s:%s" % (hostName, hostPort))
+myServer = HTTPServer((hostName, config.hostPort), MyServer)
+print(time.asctime(), "Server Starts - %s:%s" % (hostName, config.hostPort))
 
 try:
 	myServer.serve_forever()
@@ -65,4 +56,4 @@ except KeyboardInterrupt:
 	pass
 
 myServer.server_close()
-print(time.asctime(), "Server Stops - %s:%s" % (hostName, hostPort))
+print(time.asctime(), "Server Stops - %s:%s" % (hostName, config.hostPort))
